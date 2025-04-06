@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:popup_app/main.dart';
 import 'popup_list_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,6 +16,9 @@ class _SplashScreenState extends State<SplashScreen> {
         MaterialPageRoute(builder: (context) => PopupListPage()), // 메인 화면으로 이동
       );
     });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+    checkNetwork(context);
+  });
   }
 
   @override
