@@ -14,6 +14,7 @@ class PopupStore {
   final String naverMap;
   final String kakaoMap;
   final String googleMap;
+  final double id;
 
   PopupStore({
     required this.name,
@@ -26,6 +27,7 @@ class PopupStore {
     required this.naverMap,
     required this.kakaoMap,
     required this.googleMap,
+    required this.id,
   });
 
   factory PopupStore.fromJson(Map<String, dynamic> json) {
@@ -40,6 +42,7 @@ class PopupStore {
       naverMap: json['naverMap'],
       kakaoMap: json['kakaoMap'],
       googleMap: json['googleMap'],
+      id: json['id']
     );
   }
 }
@@ -72,16 +75,39 @@ class PopupProvider with ChangeNotifier {
         for (var row in rows) {
           var values = row['c'];
           loadedPopups.add(PopupStore(
-            name: values.length > 0 && values[0] != null ? values[0]['v'] ?? '' : '',
-            address: values.length > 1 && values[1] != null ? values[1]['v'] ?? '' : '',
-            description: values.length > 2 && values[2] != null ? values[2]['v'] ?? '' : '',
-            imageUrl: values.length > 3 && values[3] != null ? values[3]['v'] ?? '' : '',
-            startDate: values.length > 4 && values[4] != null ? values[4]['v'] ?? '' : '',
-            endDate: values.length > 5 && values[5] != null ? values[5]['v'] ?? '' : '',
-            link: values.length > 6 && values[6] != null ? values[6]['v'] ?? '' : '',
-            naverMap: values.length > 7 && values[7] != null ? values[7]['v'] ?? '' : '',
-            kakaoMap: values.length > 8 && values[8] != null ? values[8]['v'] ?? '' : '',
-            googleMap: values.length > 9 && values[9] != null ? values[9]['v'] ?? '' : '',
+            name: values.length > 0 && values[0] != null
+                ? values[0]['v'] ?? ''
+                : '',
+            address: values.length > 1 && values[1] != null
+                ? values[1]['v'] ?? ''
+                : '',
+            description: values.length > 2 && values[2] != null
+                ? values[2]['v'] ?? ''
+                : '',
+            imageUrl: values.length > 3 && values[3] != null
+                ? values[3]['v'] ?? ''
+                : '',
+            startDate: values.length > 4 && values[4] != null
+                ? values[4]['v'] ?? ''
+                : '',
+            endDate: values.length > 5 && values[5] != null
+                ? values[5]['v'] ?? ''
+                : '',
+            link: values.length > 6 && values[6] != null
+                ? values[6]['v'] ?? ''
+                : '',
+            naverMap: values.length > 7 && values[7] != null
+                ? values[7]['v'] ?? ''
+                : '',
+            kakaoMap: values.length > 8 && values[8] != null
+                ? values[8]['v'] ?? ''
+                : '',
+            googleMap: values.length > 9 && values[9] != null
+                ? values[9]['v'] ?? ''
+                : '',
+            id: values.length > 10 && values[10] != null
+                ? values[10]['v'] ?? ''
+                : '',
           ));
         }
 
