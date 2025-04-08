@@ -53,61 +53,96 @@ class _LikeListPageState extends State<LikeListPage> {
 
                 return Card(
                   margin: EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Stack(
                     children: [
-                      Center(
-                        child: Image.network(
-                          popup.imageUrl,
-                          width: 150,
-                          height: 150,
-                          fit: BoxFit.fill,
-                          errorBuilder: (context, error, StackTrace) {
-                            return Image.asset('assets/no_image.png',
-                                width: 150, height: 150, fit: BoxFit.fill);
-                          },
-                        ),
-                      ),
-                      SizedBox(height: 8.0),
-                      Container(
+                      Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 73, 138, 39),
-                          borderRadius: BorderRadius.circular(12),
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Center(
+                              child: Image.network(
+                                popup.imageUrl ?? '',
+                                width: 150,
+                                height: 150,
+                                fit: BoxFit.fill,
+                                errorBuilder: (context, error, StackTrace) {
+                                  return Image.asset('assets/no_image.png',
+                                      width: 150,
+                                      height: 150,
+                                      fit: BoxFit.fill);
+                                },
+                              ),
+                            ),
+                            SizedBox(height: 8.0),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 73, 138, 39),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text('성수'),
+                            ),
+                            ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              title: Text(popup.name),
+                              subtitle: Text(popup.description),
+                              trailing: IconButton(
+                                icon: Icon(Icons.link, color: Colors.blue),
+                                onPressed: () => _openLink(context, popup.link),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                TextButton.icon(
+                                  icon: Icon(Icons.map, color: Colors.green),
+                                  label: Text("네이버 지도"),
+                                  onPressed: () =>
+                                      _openLink(context, popup.naverMap),
+                                ),
+                                TextButton.icon(
+                                  icon: Icon(Icons.map, color: Colors.orange),
+                                  label: Text("카카오 지도"),
+                                  onPressed: () =>
+                                      _openLink(context, popup.kakaoMap),
+                                ),
+                                TextButton.icon(
+                                  icon: Icon(Icons.map, color: Colors.blue),
+                                  label: Text("구글 맵"),
+                                  onPressed: () =>
+                                      _openLink(context, popup.googleMap),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        child: Text('성수'), // TODO: 지역 정보 바인딩 가능하면 바꾸기
                       ),
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: Text(popup.name),
-                        subtitle: Text(popup.description),
-                        trailing: IconButton(
-                          icon: Icon(Icons.link, color: Colors.blue),
-                          onPressed: () => _openLink(context, popup.link),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          TextButton.icon(
-                            icon: Icon(Icons.map, color: Colors.green),
-                            label: Text("네이버 지도"),
-                            onPressed: () => _openLink(context, popup.naverMap),
-                          ),
-                          TextButton.icon(
-                            icon: Icon(Icons.map, color: Colors.orange),
-                            label: Text("카카오 지도"),
-                            onPressed: () => _openLink(context, popup.kakaoMap),
-                          ),
-                          TextButton.icon(
-                            icon: Icon(Icons.map, color: Colors.blue),
-                            label: Text("구글 맵"),
-                            onPressed: () =>
-                                _openLink(context, popup.googleMap),
-                          ),
-                        ],
-                      ),
+                      // 좋아요 버튼 오른쪽 상단에 위치
+                      Positioned(
+                          top: 8,
+                          right: 8,
+                          child: FutureBuilder<bool>(
+                              future: LikeHelper.isLiked(popup.id),
+                              builder: (context, snapshot) {
+                                final isLiked = snapshot.data ?? false;
+                                return IconButton(
+                                  icon: Icon(
+                                    isLiked
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    color: isLiked ? Colors.red : Colors.grey,
+                                  ),
+                                  onPressed: () async {
+                                    await LikeHelper.toggleLike(popup.id);
+                                    // (context as Element)
+                                    //     .markNeedsBuild(); // 임시 리빌드
+                                    setState(() {});
+                                  },
+                                );
+                              })),
                     ],
                   ),
                 );

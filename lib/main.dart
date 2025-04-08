@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import './providers/popup_provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'screens/splash_screen.dart';
-import 'screens/main_navigation.dart';
+
 
 
 Future<void> main() async {
