@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'popup_list_page.dart';
+import 'main_navigation.dart';
 import '../utils/network_helper.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // splash
     Future.delayed(Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => PopupListPage()), // 메인 화면으로 이동
+        MaterialPageRoute(builder: (context) => MainNavigation()), // 메인 화면으로 이동
       );
     });
 
@@ -23,6 +24,15 @@ class _SplashScreenState extends State<SplashScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       checkNetwok(context);
     });
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+          body: Center(
+        child: Text('Popup Finder',
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+      ));
+    }
   }
 
   void checkNetwok(BuildContext context) async {

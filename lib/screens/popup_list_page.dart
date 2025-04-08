@@ -58,10 +58,16 @@ class _PopupListPageState extends State<PopupListPage> {
                           children: [
                             Center(
                               child: Image.network(
-                                popup.imageUrl,
+                                popup.imageUrl ?? '',
                                 width: 150,
                                 height: 150,
                                 fit: BoxFit.fill,
+                                errorBuilder: (context, error, StackTrace) {
+                                  return Image.asset('assets/no_image.png',
+                                      width: 150,
+                                      height: 150,
+                                      fit: BoxFit.fill);
+                                },
                               ),
                             ),
                             SizedBox(height: 8.0),

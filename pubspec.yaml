@@ -39,6 +39,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/splash.png
+    - assets/no_image.png
     - .env
 
 flutter_native_splash:
