@@ -76,6 +76,8 @@ class _PopupListPageState extends State<PopupListPage> {
         // 카드리스트
         Expanded(child: popupProvider.isLoading
               ? Center(child: CircularProgressIndicator())
+              : filteredList.isEmpty 
+                ?Center(child: Text("팝업 정보가 없습니다")) 
               : ListView.builder(
                   itemCount: filteredList.length,
                   itemBuilder: (context, index) {
@@ -94,13 +96,13 @@ class _PopupListPageState extends State<PopupListPage> {
                                 Center(
                                   child: Image.network(
                                     popup.imageUrl ?? '',
-                                    width: 150,
-                                    height: 150,
+                                    width: 200,
+                                    height: 200,
                                     fit: BoxFit.fill,
                                     errorBuilder: (context, error, StackTrace) {
                                       return Image.asset('assets/no_image.png',
-                                          width: 150,
-                                          height: 150,
+                                          width: 200,
+                                          height: 200,
                                           fit: BoxFit.fill);
                                     },
                                   ),
