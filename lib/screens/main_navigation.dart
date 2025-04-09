@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:popup_app/screens/like_list_page.dart';
+import 'package:popup_app/screens/map_page.dart';
 import 'package:popup_app/screens/popup_list_page.dart';
 
 class MainNavigation extends StatefulWidget {
@@ -15,6 +16,7 @@ class _MainNavigationState extends State<MainNavigation> {
   final List<Widget> _pages = [
     PopupListPage(),
     LikeListPage(),
+    MapPage(),
   ];
 
   void _onTap(int index) {
@@ -31,6 +33,10 @@ class _MainNavigationState extends State<MainNavigation> {
     BottomNavigationBarItem(
       icon: Icon(Icons.favorite),
       label: 'Like',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.map_rounded),
+      label: 'Map',
     ),
   ];
 

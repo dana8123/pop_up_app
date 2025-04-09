@@ -81,10 +81,10 @@ class _LikeListPageState extends State<LikeListPage> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 12, vertical: 4),
                               decoration: BoxDecoration(
-                                color:getTagColor(popup.place_tag),
+                                color:getTagColor(popup.placeTag),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: Text(popup.place_tag),
+                              child: Text(popup.placeTag),
                             ),
                             ListTile(
                               contentPadding: EdgeInsets.zero,
