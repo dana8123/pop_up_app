@@ -11,7 +11,7 @@ class MapPage extends StatelessWidget {
     final popupList = context.watch<PopupProvider>().popups;
 
     return Scaffold(
-      appBar: AppBar(title: Text('지도로 보기')),
+      appBar: AppBar(title: Text('팝업 지도')),
       body: AppleMap(
         initialCameraPosition: CameraPosition(
           target: popupList.isNotEmpty

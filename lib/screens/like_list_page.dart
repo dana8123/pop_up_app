@@ -96,23 +96,20 @@ class _LikeListPageState extends State<LikeListPage> {
                               ),
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                TextButton.icon(
-                                  icon: Icon(Icons.map, color: Colors.green),
-                                  label: Text("네이버 지도"),
+                                IconButton(
+                                  icon: Image.asset('assets/icons/naver_map.png',width: 30,height: 30,),
                                   onPressed: () =>
                                       _openLink(context, popup.naverMap),
                                 ),
-                                TextButton.icon(
-                                  icon: Icon(Icons.map, color: Colors.orange),
-                                  label: Text("카카오 지도"),
+                                IconButton(
+                                  icon: Image.asset('assets/icons/kakao_map.png',width: 30,height: 30,),
                                   onPressed: () =>
                                       _openLink(context, popup.kakaoMap),
                                 ),
-                                TextButton.icon(
-                                  icon: Icon(Icons.map, color: Colors.blue),
-                                  label: Text("구글 맵"),
+                                IconButton(
+                                  icon: Image.asset('assets/icons/google_map.png',width: 30,height: 30,),
                                   onPressed: () =>
                                       _openLink(context, popup.googleMap),
                                 ),
