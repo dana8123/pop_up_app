@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:popup_app/utils/like_helper.dart';
+import 'package:popup_app/utils/tag_color_helper.dart';
 import 'package:provider/provider.dart';
 import '../providers/popup_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -75,10 +76,10 @@ class _PopupListPageState extends State<PopupListPage> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 12, vertical: 4),
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 73, 138, 39),
+                                color: getTagColor(popup.place_tag),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: Text('성수'),
+                              child: Text(popup.place_tag),
                             ),
                             ListTile(
                               contentPadding: EdgeInsets.zero,
@@ -90,23 +91,25 @@ class _PopupListPageState extends State<PopupListPage> {
                               ),
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                TextButton.icon(
-                                  icon: Icon(Icons.map, color: Colors.green),
-                                  label: Text("네이버 지도"),
+                                IconButton(
+                                  icon: Image.asset('assets/icons/naver_map.png',width: 30,height: 30,),
                                   onPressed: () =>
                                       _openLink(context, popup.naverMap),
                                 ),
-                                TextButton.icon(
-                                  icon: Icon(Icons.map, color: Colors.orange),
-                                  label: Text("카카오 지도"),
+                                IconButton(
+                                  icon: Image.asset('assets/icons/kakao_map.png',width: 30,height: 30,),
                                   onPressed: () =>
                                       _openLink(context, popup.kakaoMap),
                                 ),
-                                TextButton.icon(
-                                  icon: Icon(Icons.map, color: Colors.blue),
-                                  label: Text("구글 맵"),
+                                IconButton(
+                                  icon: Image.asset('assets/icons/google_map.png',width: 30,height: 30,),
+                                  onPressed: () =>
+                                      _openLink(context, popup.googleMap),
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.map, color: Colors.grey),
                                   onPressed: () =>
                                       _openLink(context, popup.googleMap),
                                 ),

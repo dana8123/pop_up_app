@@ -15,6 +15,7 @@ class PopupStore {
   final String kakaoMap;
   final String googleMap;
   final double id;
+  final String place_tag;
 
   PopupStore({
     required this.name,
@@ -28,22 +29,23 @@ class PopupStore {
     required this.kakaoMap,
     required this.googleMap,
     required this.id,
+    required this.place_tag,
   });
 
   factory PopupStore.fromJson(Map<String, dynamic> json) {
     return PopupStore(
-      name: json['name'],
-      address: json['address'],
-      description: json['description'],
-      imageUrl: json['imageUrl'],
-      startDate: json['startDate'],
-      endDate: json['endDate'],
-      link: json['link'],
-      naverMap: json['naverMap'],
-      kakaoMap: json['kakaoMap'],
-      googleMap: json['googleMap'],
-      id: json['id']
-    );
+        name: json['name'],
+        address: json['address'],
+        description: json['description'],
+        imageUrl: json['imageUrl'],
+        startDate: json['startDate'],
+        endDate: json['endDate'],
+        link: json['link'],
+        naverMap: json['naverMap'],
+        kakaoMap: json['kakaoMap'],
+        googleMap: json['googleMap'],
+        id: json['id'],
+        place_tag: json['place_tag']);
   }
 }
 
@@ -107,6 +109,9 @@ class PopupProvider with ChangeNotifier {
                 : '',
             id: values.length > 10 && values[10] != null
                 ? values[10]['v'] ?? ''
+                : '',
+            place_tag: values.length > 11 && values[11] != null
+                ? values[11]['v'] ?? ''
                 : '',
           ));
         }

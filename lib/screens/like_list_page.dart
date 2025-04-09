@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:popup_app/providers/popup_provider.dart';
 import 'package:popup_app/utils/like_helper.dart';
+import 'package:popup_app/utils/tag_color_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -80,10 +81,10 @@ class _LikeListPageState extends State<LikeListPage> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 12, vertical: 4),
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 73, 138, 39),
+                                color:getTagColor(popup.place_tag),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: Text('성수'),
+                              child: Text(popup.place_tag),
                             ),
                             ListTile(
                               contentPadding: EdgeInsets.zero,
