@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Popup Finder',
-        theme: ThemeData(primarySwatch: Colors.blue),
+        theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'NotoSansKr',),
         home: SplashScreen(),
       ),
     );

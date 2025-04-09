@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:popup_app/providers/popup_provider.dart';
+import 'package:popup_app/utils/date_helper.dart';
 import 'package:popup_app/utils/like_helper.dart';
 import 'package:popup_app/utils/tag_color_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LikeListPage extends StatefulWidget {
@@ -113,6 +115,18 @@ class _LikeListPageState extends State<LikeListPage> {
                                   onPressed: () =>
                                       _openLink(context, popup.googleMap),
                                 ),
+                                // 👉 왼쪽 아이콘들 끝나고 공간 밀어냄
+                                    Spacer(),
+                                    IconButton(
+                                      icon: Icon(Icons.share),
+                                      onPressed: () {
+                                        final shareText = 
+                                    '''Popup Finder\n📍 ${popup.name}\n📌 ${popup.address ?? '주소 정보 없음'}\n🗓️ ${formatPopupDateFromString(popup.startDate)} ~ ${formatPopupDateFromString(popup.endDate)}\n지금 이 팝업, 딱 내 취향...!  
+👉 Popup Finder에서 더 알아보기!''';
+
+                                        Share.share(shareText);
+                                      },
+                                    ),
                               ],
                             ),
                           ],

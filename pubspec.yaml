@@ -49,6 +49,12 @@ flutter:
     - assets/no_image.png
     - .env
     - assets/icons/
+  fonts: 
+    - family: NotoSansKR
+      fonts:
+          - asset: assets/fonts/NotoSansKr-Regular.ttf
+            weight: 700
+
 
 flutter_native_splash:
   color: "#ffffff" # 배경색 (변경 가능)

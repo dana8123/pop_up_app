@@ -14,13 +14,17 @@ class PopupListPage extends StatefulWidget {
 
 class _PopupListPageState extends State<PopupListPage> {
   Map<double, bool> likedStatus = {};
-  final List<String> locationList = ['전체', '성수', '잠실'];
+  final List<String> locationList = ['전체', '성수', '잠실', '을지로', '강남', '홍대', '기타' ];
   String selectedLocation = '전체';
 
   @override
   void initState() {
     super.initState();
     _loadLikedStatus();
+
+    Future.microtask(() {
+    Provider.of<PopupProvider>(context, listen: false).fetchPopups();
+  });
   }
 
   Future<void> _loadLikedStatus() async {
@@ -69,6 +73,7 @@ class _PopupListPageState extends State<PopupListPage> {
             }).toList(),
           ),
         ),
+        // 카드리스트
         Expanded(child: popupProvider.isLoading
               ? Center(child: CircularProgressIndicator())
               : ListView.builder(
