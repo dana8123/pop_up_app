@@ -49,7 +49,7 @@ class PopupStore {
       id: (json['id'] ?? 0).toDouble(),
       placeTag: json['place_tag'] ?? '',
       latitude: (json['lat'] ?? 0).toDouble(),
-      longitude: (json['lnt'] ?? 0).toDouble(),
+      longitude: (json['lng'] ?? 0).toDouble(),
     );
   }
 }
