@@ -161,3 +161,13 @@ app.*.symbols
 .gclient_previous_sync_commits
 
 .env
+
+# Firebase
+firebase.json
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
+
+# CocoaPods
+Pods/
+Podfile.lock
