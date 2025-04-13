@@ -39,7 +39,7 @@ class PopupStore {
       name: json['name'] ?? '',
       address: json['address'] ?? '',
       description: json['description'] ?? '',
-      imageUrl: json['imageUrl'] ?? '',
+      imageUrl: json['image'] ?? '',
       startDate: json['start_at'] ?? '',
       endDate: json['end_at'] ?? '',
       link: json['link'] ?? '',
