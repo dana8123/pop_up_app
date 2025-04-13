@@ -40,16 +40,16 @@ class PopupStore {
       address: json['address'] ?? '',
       description: json['description'] ?? '',
       imageUrl: json['imageUrl'] ?? '',
-      startDate: json['startDate'] ?? '',
-      endDate: json['endDate'] ?? '',
+      startDate: json['start_at'] ?? '',
+      endDate: json['end_at'] ?? '',
       link: json['link'] ?? '',
-      naverMap: json['naverMap'] ?? '',
-      kakaoMap: json['kakaoMap'] ?? '',
-      googleMap: json['googleMap'] ?? '',
+      naverMap: json['naver'] ?? '',
+      kakaoMap: json['kakao'] ?? '',
+      googleMap: json['google'] ?? '',
       id: (json['id'] ?? 0).toDouble(),
       placeTag: json['place_tag'] ?? '',
-      latitude: (json['latitude'] ?? 0).toDouble(),
-      longitude: (json['longitude'] ?? 0).toDouble(),
+      latitude: (json['lat'] ?? 0).toDouble(),
+      longitude: (json['lnt'] ?? 0).toDouble(),
     );
   }
 }
@@ -66,11 +66,14 @@ class PopupProvider with ChangeNotifier {
 
     try {
       final response = await Supabase.instance.client
-          .from('popup_store')
-          .select('*')
-          .order('startDate');
+          .from('popups')
+          .select()
+          .order('start_at');
 
-      _popups = response.map<PopupStore>((item) => PopupStore.fromMap(item)).toList();
+      print("응답!");
+      print(response);
+      _popups =
+          response.map<PopupStore>((item) => PopupStore.fromMap(item)).toList();
     } catch (e) {
       print('🔥 Supabase fetch error: $e');
     }
