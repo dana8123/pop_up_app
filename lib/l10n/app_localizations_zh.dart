@@ -31,4 +31,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get place_etc => 'etc';
+
+  @override
+  String get place_all => '全部的';
 }

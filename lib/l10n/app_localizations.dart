@@ -142,6 +142,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'etc'**
   String get place_etc;
+
+  /// No description provided for @place_all.
+  ///
+  /// In en, this message translates to:
+  /// **'all'**
+  String get place_all;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

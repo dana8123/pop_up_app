@@ -31,4 +31,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get place_etc => 'etc';
+
+  @override
+  String get place_all => 'all';
 }

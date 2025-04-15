@@ -4,6 +4,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class PopupStore {
   final String name;
   final String address;
+  final String descZh;
+  final String descEn;
   final String description;
   final String imageUrl;
   final String startDate;
@@ -16,6 +18,17 @@ class PopupStore {
   final String placeTag;
   final double latitude;
   final double longitude;
+
+  String localizedDescription(BuildContext context) {
+    final locale = Localizations.localeOf(context).languageCode;
+
+    final map = {
+      'zh': descZh,
+      'en': descEn,
+      'ko': description,
+    };
+    return map[locale] ?? description; // fallback
+  }
 
   PopupStore({
     required this.name,
@@ -32,6 +45,8 @@ class PopupStore {
     required this.placeTag,
     required this.latitude,
     required this.longitude,
+    required this.descEn,
+    required this.descZh,
   });
 
   factory PopupStore.fromMap(Map<String, dynamic> json) {
@@ -39,6 +54,8 @@ class PopupStore {
       name: json['name'] ?? '',
       address: json['address'] ?? '',
       description: json['description'] ?? '',
+      descEn: json['desc_en'] ?? '',
+      descZh: json['desc_zh'] ?? '',
       imageUrl: json['image'] ?? '',
       startDate: json['start_at'] ?? '',
       endDate: json['end_at'] ?? '',

@@ -70,7 +70,7 @@ class _PopupListPageState extends State<PopupListPage> {
             items: locationList.map((location) {
               return DropdownMenuItem<String>(
                 value: location,
-                child: Text(location),
+                child: Text(translatePlace(context, location)),
               );
             }).toList(),
           ),
@@ -137,7 +137,7 @@ class _PopupListPageState extends State<PopupListPage> {
                                 ListTile(
                                   contentPadding: EdgeInsets.zero,
                                   title: Text(popup.name),
-                                  subtitle: Text(popup.description),
+                                  subtitle: Text(popup.localizedDescription(context)),
                                   trailing: IconButton(
                                     icon: Icon(Icons.link, color: Colors.blue),
                                     onPressed: () => _openLink(context, popup.link),
