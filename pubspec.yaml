@@ -50,6 +50,7 @@ flutter:
     - assets/no_image.png
     - .env
     - assets/icons/
+  generate: true
   fonts: 
     - family: NotoSansKR
       fonts:

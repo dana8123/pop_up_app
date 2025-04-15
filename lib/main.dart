@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:popup_app/l10n/app_localizations.dart';
+import 'package:popup_app/l10n/app_localizations_en.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import './providers/popup_provider.dart';
@@ -22,6 +25,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        AppLocalizations.delegate
+        // 추가로 AppLocalizations.delegate도 설정 필요
+      ],
+      supportedLocales: [
+        Locale('en'),
+        Locale('ko'),
+        Locale('zh'),
+      ],
+      locale: Locale('zh'),
       debugShowCheckedModeBanner: false,
       title: 'Popup Finder',
       theme: ThemeData(

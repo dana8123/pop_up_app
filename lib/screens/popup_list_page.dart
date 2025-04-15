@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:popup_app/utils/date_helper.dart';
 import 'package:popup_app/utils/like_helper.dart';
 import 'package:popup_app/utils/tag_color_helper.dart';
+import 'package:popup_app/utils/translate_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../providers/popup_provider.dart';
@@ -43,6 +44,7 @@ class _PopupListPageState extends State<PopupListPage> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     final popupProvider = Provider.of<PopupProvider>(context);
     final filteredList = selectedLocation == '전체'
@@ -118,7 +120,7 @@ class _PopupListPageState extends State<PopupListPage> {
                                         color: getTagColor(popup.placeTag),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
-                                      child: Text(popup.placeTag),
+                                      child: Text(translatePlace(context, popup.placeTag)),
                                     ),
                                     SizedBox(width: 8.0),
                                     Container(

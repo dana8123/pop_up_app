@@ -1,0 +1,11 @@
+{
+    "@@locale": "en",
+    "popupListTitle": "Popup Store List",
+    "hello": "Hello",
+    "place_jamsil": "jamsil",
+    "place_sungsu": "sungsu",
+    "place_gangnam": "gangnam",
+    "place_euljiro": "euljiro",
+    "place_hongdae": "hongdae",
+    "place_etc": "etc"
+  }

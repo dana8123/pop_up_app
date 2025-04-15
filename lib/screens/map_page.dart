@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/popup_provider.dart';
 
 class MapPage extends StatelessWidget {
-  const MapPage({Key? key}) : super(key: key);
+  const MapPage({super.key});
 
   @override
   Widget build(BuildContext context) {
