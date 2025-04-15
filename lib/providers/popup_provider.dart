@@ -100,8 +100,6 @@ class PopupProvider with ChangeNotifier {
           .select()
           .order('start_at');
 
-      print("응답!");
-      print(response);
       _popups =
           response.map<PopupStore>((item) => PopupStore.fromMap(item)).toList();
     } catch (e) {
