@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class PopupStore {
   final String name;
+  final String nameEn;
   final String address;
   final String descZh;
   final String descEn;
@@ -22,12 +23,22 @@ class PopupStore {
   String localizedDescription(BuildContext context) {
     final locale = Localizations.localeOf(context).languageCode;
 
-    final map = {
-      'zh': descZh,
-      'en': descEn,
-      'ko': description,
-    };
-    return map[locale] ?? description; // fallback
+    switch (locale) {
+    case 'ko':
+      return description;
+    case 'zh':
+      return descZh;
+    case 'en':
+      return descEn;
+    default:
+      return descEn; // 영어로 fallback
+    } 
+  }
+
+  String localizedName(BuildContext context) {
+    final locale = Localizations.localeOf(context).languageCode;
+
+    return locale == 'ko' ? name : nameEn;
   }
 
   PopupStore({
@@ -47,11 +58,13 @@ class PopupStore {
     required this.longitude,
     required this.descEn,
     required this.descZh,
+    required this.nameEn,
   });
 
   factory PopupStore.fromMap(Map<String, dynamic> json) {
     return PopupStore(
       name: json['name'] ?? '',
+      nameEn: json['name_en'] ?? '',
       address: json['address'] ?? '',
       description: json['description'] ?? '',
       descEn: json['desc_en'] ?? '',

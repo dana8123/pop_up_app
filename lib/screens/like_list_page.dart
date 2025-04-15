@@ -90,8 +90,8 @@ class _LikeListPageState extends State<LikeListPage> {
                             ),
                             ListTile(
                               contentPadding: EdgeInsets.zero,
-                              title: Text(popup.name),
-                              subtitle: Text(popup.description),
+                              title: Text(popup.localizedName(context)),
+                              subtitle: Text(popup.localizedDescription(context)),
                               trailing: IconButton(
                                 icon: Icon(Icons.link, color: Colors.blue),
                                 onPressed: () => _openLink(context, popup.link),

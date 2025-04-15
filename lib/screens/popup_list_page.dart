@@ -37,13 +37,6 @@ class _PopupListPageState extends State<PopupListPage> {
     setState(() {});
   }
 
-  void _toggleLike(double id) async {
-    final newValue = await LikeHelper.toggleLike(id);
-    setState(() {
-      likedStatus[id] = newValue;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final popupProvider = Provider.of<PopupProvider>(context);
@@ -136,7 +129,7 @@ class _PopupListPageState extends State<PopupListPage> {
                                 ),
                                 ListTile(
                                   contentPadding: EdgeInsets.zero,
-                                  title: Text(popup.name),
+                                  title: Text(popup.localizedName(context)),
                                   subtitle: Text(popup.localizedDescription(context)),
                                   trailing: IconButton(
                                     icon: Icon(Icons.link, color: Colors.blue),
