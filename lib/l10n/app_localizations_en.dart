@@ -34,4 +34,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get place_all => 'all';
+
+  @override
+  String get no_like => 'You haven\'t liked any pop-ups yet.';
 }

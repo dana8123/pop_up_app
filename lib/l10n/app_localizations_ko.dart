@@ -34,4 +34,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get place_all => '전체';
+
+  @override
+  String get no_like => '좋아요한 팝업이 없어요';
 }

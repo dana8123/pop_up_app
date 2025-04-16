@@ -6,6 +6,7 @@ import 'package:popup_app/utils/tag_color_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:popup_app/l10n/app_localizations.dart';
 
 class LikeListPage extends StatefulWidget {
   @override
@@ -46,9 +47,9 @@ class _LikeListPageState extends State<LikeListPage> {
         .toList();
 
     return Scaffold(
-      appBar: AppBar(title: Text("좋아요한 팝업")),
+      appBar: AppBar(title: Text("Liked popup")),
       body: likedPopups.isEmpty
-          ? Center(child: Text("좋아요한 팝업이 없어요."))
+          ? Center(child: Text(AppLocalizations.of(context)!.no_like))
           : ListView.builder(
               itemCount: likedPopups.length,
               itemBuilder: (context, index) {
@@ -124,8 +125,7 @@ class _LikeListPageState extends State<LikeListPage> {
                                           onPressed: () {
                                             final box = shareContext.findRenderObject() as RenderBox?;
                                             final shareText = 
-                                        '''Popup Finder\n📍 ${popup.name}\n📌 ${popup.address ?? '주소 정보 없음'}\n🗓️ ${formatPopupDateFromString(popup.startDate)} ~ ${formatPopupDateFromString(popup.endDate)}\n지금 이 팝업, 딱 내 취향...!  
-                                        👉 Popup Finder에서 더 알아보기!''';
+                                        '''Popup Finder\n📍 ${popup.name}\n📌 ${popup.address ?? '주소 정보 없음'}\n🗓️ ${formatPopupDateFromString(popup.startDate)} ~ ${formatPopupDateFromString(popup.endDate)}  \n👉 Popup Finder by Appstore''';
                                         
                                               if (box != null) {
                                                 Share.share(

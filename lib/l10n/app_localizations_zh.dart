@@ -34,4 +34,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get place_all => '全部的';
+
+  @override
+  String get no_like => '你还没有点赞任何快闪店。';
 }

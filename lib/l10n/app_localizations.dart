@@ -150,6 +150,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'all'**
   String get place_all;
+
+  /// No description provided for @no_like.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t liked any pop-ups yet.'**
+  String get no_like;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
