@@ -24,8 +24,8 @@ class MapPage extends StatelessWidget {
             annotationId: AnnotationId(popup.id.toString()),
             position: LatLng(popup.latitude, popup.longitude),
             infoWindow: InfoWindow(
-              title: popup.name,
-              snippet: popup.placeTag,
+              title: popup.localizedName(context),
+              snippet: popup.localizedDescription(context),
             ),
           );
         }).toSet(),

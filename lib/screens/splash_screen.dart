@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'main_navigation.dart';
 import '../utils/network_helper.dart';
 
@@ -9,56 +10,66 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  InterstitialAd? _interstitialAd;
+  AppOpenAd? _appOpenAd;
   bool _isAdLoaded = false;
+  bool _isAdShowing = false;
 
   @override
   void initState() {
     super.initState();
-    _loadInterstitialAd();
+    _loadAppOpenAd();
 
-    // 네트워크 연결 확인
+    // 네트워크 확인
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      checkNetwok(context);
+      checkNetwork(context);
     });
 
-    // 2초 뒤 광고 or 메인화면
+    // 2초 대기 후 광고 또는 메인 이동
     Future.delayed(Duration(seconds: 2), () {
       if (_isAdLoaded) {
-        _interstitialAd?.show();
+        _showAd();
       } else {
         goToMain();
       }
     });
   }
 
-  void _loadInterstitialAd() {
-    InterstitialAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/1033173712', // 테스트용 ID (배포 시 교체!)
+  void _loadAppOpenAd() {
+    AppOpenAd.load(
+      adUnitId: dotenv.get("ADMOB_SPLASH"),
       request: AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
+      adLoadCallback: AppOpenAdLoadCallback(
         onAdLoaded: (ad) {
-          _interstitialAd = ad;
+          _appOpenAd = ad;
           _isAdLoaded = true;
-          _interstitialAd?.fullScreenContentCallback = FullScreenContentCallback(
+
+          _appOpenAd?.fullScreenContentCallback = FullScreenContentCallback(
             onAdDismissedFullScreenContent: (ad) {
-              print('광고 로드 ....?: ');
-              goToMain();
               ad.dispose();
+              _isAdShowing = false;
+              goToMain();
             },
             onAdFailedToShowFullScreenContent: (ad, error) {
-              print('광고 로드 ....? 실패: ');
-              goToMain();
               ad.dispose();
+              _isAdShowing = false;
+              goToMain();
             },
           );
         },
         onAdFailedToLoad: (error) {
-          print('광고 로드 실패: $error');
-          _isAdLoaded = false;
+          print('AppOpenAd failed to load: $error');
         },
       ),
     );
+  }
+
+  void _showAd() {
+    if (_appOpenAd != null && !_isAdShowing) {
+      _isAdShowing = true;
+      _appOpenAd!.show();
+    } else {
+      goToMain();
+    }
   }
 
   void goToMain() {
@@ -67,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  void checkNetwok(BuildContext context) async {
+  void checkNetwork(BuildContext context) async {
     bool connected = await NetworkHelper.isInternetAvailable();
     if (!connected) {
       showDialog(
