@@ -27,18 +27,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       localizationsDelegates: [
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        AppLocalizations.delegate
-        // 추가로 AppLocalizations.delegate도 설정 필요
+        GlobalCupertinoLocalizations.delegate,        // 추가로 AppLocalizations.delegate도 설정 필요
       ],
       supportedLocales: [
         Locale('en'),
-        Locale('ko'),
         Locale('zh'),
+        Locale('ko'),
       ],
-      locale: Locale('zh'),
+      locale: Locale('ko'),
       debugShowCheckedModeBanner: false,
       title: 'Popup Finder',
       theme: ThemeData(

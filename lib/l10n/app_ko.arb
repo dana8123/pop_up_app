@@ -1,0 +1,12 @@
+{
+    "@@locale": "ko",
+    "popupListTitle": "Popup Store List",
+    "hello": "안녕",
+    "place_jamsil": "잠실",
+    "place_sungsu": "성수",
+    "place_gangnam": "강남",
+    "place_euljiro": "을지로",
+    "place_hongdae": "홍대",
+    "place_etc": "기타",
+    "place_all": "전체"
+  }
