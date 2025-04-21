@@ -31,12 +31,14 @@ class _MainNavigationState extends State<MainNavigation> {
       label: 'Home',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.favorite),
-      label: 'Like',
+      icon: Icon(Icons.map_outlined),
+      activeIcon: Icon(Icons.map),
+      label: 'Map',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.map_rounded),
-      label: 'Map',
+       icon: Icon(Icons.favorite_border),
+      activeIcon: Icon(Icons.favorite),
+      label: 'Like',
     ),
   ];
 

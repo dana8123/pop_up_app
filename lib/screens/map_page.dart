@@ -50,14 +50,6 @@ class MapPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: '팝업스토어 검색',
-                    prefixIcon: Icon(Icons.search),
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                  ),
-                ),
               ),
             ),
           ),
