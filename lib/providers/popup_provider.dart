@@ -24,15 +24,15 @@ class PopupStore {
     final locale = Localizations.localeOf(context).languageCode;
 
     switch (locale) {
-    case 'ko':
-      return description;
-    case 'zh':
-      return descZh;
-    case 'en':
-      return descEn;
-    default:
-      return descEn; // 영어로 fallback
-    } 
+      case 'ko':
+        return description;
+      case 'zh':
+        return descZh;
+      case 'en':
+        return descEn;
+      default:
+        return descEn; // 영어로 fallback
+    }
   }
 
   String localizedName(BuildContext context) {
@@ -98,7 +98,8 @@ class PopupProvider with ChangeNotifier {
       final response = await Supabase.instance.client
           .from('popups')
           .select()
-          .order('start_at');
+          .eq('deleted', false)
+          .order('id', ascending: false);
 
       _popups =
           response.map<PopupStore>((item) => PopupStore.fromMap(item)).toList();
