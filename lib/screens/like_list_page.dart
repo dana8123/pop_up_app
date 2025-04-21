@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:popup_app/providers/popup_provider.dart';
+import 'package:popup_app/screens/popup_list_page.dart';
 import 'package:popup_app/utils/date_helper.dart';
 import 'package:popup_app/utils/like_helper.dart';
 import 'package:popup_app/utils/tag_color_helper.dart';
+import 'package:popup_app/utils/translate_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -39,6 +41,17 @@ class _LikeListPageState extends State<LikeListPage> {
     }
   }
 
+  void _sharePopup(BuildContext context, PopupStore popup) {
+    final shareText = '''
+${popup.localizedName(context)}
+📍 ${popup.address ?? '주소 정보 없음'}
+🗓️ ${formatPopupDateFromString(popup.startDate)} - ${formatPopupDateFromString(popup.endDate)}
+지금 이 팝업, 딱 내 취향...!
+👉 Popup Finder에서 더 알아보기!
+    ''';
+    Share.share(shareText);
+  }
+
   @override
   Widget build(BuildContext context) {
     final popupProvider = Provider.of<PopupProvider>(context);
@@ -47,126 +60,205 @@ class _LikeListPageState extends State<LikeListPage> {
         .toList();
 
     return Scaffold(
-      appBar: AppBar(title: Text("Liked popup")),
+      appBar: AppBar(title: Text("좋아요")),
       body: likedPopups.isEmpty
           ? Center(child: Text(AppLocalizations.of(context)!.no_like))
           : ListView.builder(
               itemCount: likedPopups.length,
               itemBuilder: (context, index) {
                 final popup = likedPopups[index];
-
                 return Card(
-                  margin: EdgeInsets.all(8.0),
-                  child: Stack(
+                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+                            child: Image.network(
+                              popup.imageUrl ?? '',
+                              width: double.infinity,
+                              height: 200,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  width: double.infinity,
+                                  height: 200,
+                                  color: Colors.grey[200],
+                                  child: Image.asset('assets/no_image.png'),
+                                );
+                              },
+                            ),
+                          ),
+                          Positioned(
+                            top: 12,
+                            right: 12,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    blurRadius: 8,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: LikeButton(popupId: popup.id),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 12,
+                            left: 12,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Text(
+                                translatePlace(context, popup.placeTag),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                       Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                        padding: EdgeInsets.all(16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Center(
-                              child: Image.network(
-                                popup.imageUrl ?? '',
-                                width: 150,
-                                height: 150,
-                                fit: BoxFit.fill,
-                                errorBuilder: (context, error, StackTrace) {
-                                  return Image.asset('assets/no_image.png',
-                                      width: 150,
-                                      height: 150,
-                                      fit: BoxFit.fill);
-                                },
-                              ),
+                            Text(
+                              popup.localizedName(context),
+                              style: Theme.of(context).textTheme.headlineMedium,
                             ),
-                            SizedBox(height: 8.0),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 4),
-                              decoration: BoxDecoration(
-                                color:getTagColor(popup.placeTag),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Text(popup.placeTag),
-                            ),
-                            ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              title: Text(popup.localizedName(context)),
-                              subtitle: Text(popup.localizedDescription(context)),
-                              trailing: IconButton(
-                                icon: Icon(Icons.link, color: Colors.blue),
-                                onPressed: () => _openLink(context, popup.link),
-                              ),
-                            ),
+                            SizedBox(height: 8),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                IconButton(
-                                  icon: Image.asset('assets/icons/naver_map.png',width: 30,height: 30,),
-                                  onPressed: () =>
-                                      _openLink(context, popup.naverMap),
+                                Icon(Icons.calendar_today, size: 16, color: Colors.grey[600]),
+                                SizedBox(width: 4),
+                                Text(
+                                  '${formatPopupDateFromString(popup.startDate)} - ${formatPopupDateFromString(popup.endDate)}',
+                                  style: Theme.of(context).textTheme.headlineSmall,
                                 ),
-                                IconButton(
-                                  icon: Image.asset('assets/icons/kakao_map.png',width: 30,height: 30,),
-                                  onPressed: () =>
-                                      _openLink(context, popup.kakaoMap),
+                              ],
+                            ),
+                            SizedBox(height: 4),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children:[
+                                Icon(Icons.description, size: 16, color: Colors.grey[600]),
+                                SizedBox(width: 4),
+                                Expanded(
+                                  child: Text(
+                                    popup.localizedDescription(context) ?? '',
+                                    style: Theme.of(context).textTheme.headlineSmall,
+                                    maxLines: 3,
+                                    overflow: TextOverflow.visible,
+                                    softWrap: true,
+                                  ),
+                                )
+                              ]
+                            ),
+                            
+                            SizedBox(height: 16),
+                            Divider(),
+                            SizedBox(height: 8),
+                            
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                InkWell(
+                                  onTap: () => _openLink(context, popup.naverMap),
+                                  child: Column(
+                                    children: [
+                                      Image.asset(
+                                        'assets/icons/naver_map.png',
+                                        width: 24,
+                                        height: 24,
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        '네이버지도',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                IconButton(
-                                  icon: Image.asset('assets/icons/google_map.png',width: 30,height: 30,),
-                                  onPressed: () =>
-                                      _openLink(context, popup.googleMap),
+                                InkWell(
+                                  onTap: () => _openLink(context, popup.kakaoMap),
+                                  child: Column(
+                                    children: [
+                                      Image.asset(
+                                        'assets/icons/kakao_map.png',
+                                        width: 24,
+                                        height: 24,
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        '카카오맵',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                // 👉 왼쪽 아이콘들 끝나고 공간 밀어냄
-                                    Spacer(),
-                                    Builder(
-                                      builder: (shareContext) {
-                                        return IconButton(
-                                          icon: Icon(Icons.share),
-                                          onPressed: () {
-                                            final box = shareContext.findRenderObject() as RenderBox?;
-                                            final shareText = 
-                                        '''Popup Finder\n📍 ${popup.name}\n📌 ${popup.address ?? '주소 정보 없음'}\n🗓️ ${formatPopupDateFromString(popup.startDate)} ~ ${formatPopupDateFromString(popup.endDate)}  \n👉 Popup Finder by Appstore''';
-                                        
-                                              if (box != null) {
-                                                Share.share(
-                                                  shareText,
-                                                  sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
-                                                );
-                                              } else {
-                                                Share.share(shareText);
-                                              }
-                                          },
-                                        );
-                                      }
-                                    ),
+                                InkWell(
+                                  onTap: () => _openLink(context, popup.googleMap),
+                                  child: Column(
+                                    children: [
+                                      Image.asset(
+                                        'assets/icons/google_map.png',
+                                        width: 24,
+                                        height: 24,
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        '구글지도',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () => _sharePopup(context, popup),
+                                  child: Column(
+                                    children: [
+                                      Icon(
+                                        Icons.share,
+                                        size: 24,
+                                        color: Colors.grey[600],
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        '공유하기',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           ],
                         ),
                       ),
-                      // 좋아요 버튼 오른쪽 상단에 위치
-                      Positioned(
-                          top: 8,
-                          right: 8,
-                          child: FutureBuilder<bool>(
-                              future: LikeHelper.isLiked(popup.id),
-                              builder: (context, snapshot) {
-                                final isLiked = snapshot.data ?? false;
-                                return IconButton(
-                                  icon: Icon(
-                                    isLiked
-                                        ? Icons.favorite
-                                        : Icons.favorite_border,
-                                    color: isLiked ? Colors.red : Colors.grey,
-                                  ),
-                                  onPressed: () async {
-                                    await LikeHelper.toggleLike(popup.id);
-                                    // (context as Element)
-                                    //     .markNeedsBuild(); // 임시 리빌드
-                                    setState(() {});
-                                  },
-                                );
-                              })),
                     ],
                   ),
                 );

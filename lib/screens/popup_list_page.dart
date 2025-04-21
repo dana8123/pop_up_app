@@ -216,19 +216,35 @@ ${popup.localizedName(context)}
                   ],
                 ),
                 SizedBox(height: 4),
+                // Row(
+                //   children: [
+                //     Icon(Icons.location_on, size: 16, color: Colors.grey[600]),
+                //     SizedBox(width: 4),
+                //     Expanded(
+                //       child: Text(
+                //         popup.address ?? '',
+                //         style: Theme.of(context).textTheme.headlineSmall,
+                //         maxLines: 1,
+                //         overflow: TextOverflow.ellipsis,
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 Row(
-                  children: [
-                    Icon(Icons.location_on, size: 16, color: Colors.grey[600]),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children:[
+                    Icon(Icons.description, size: 16, color: Colors.grey[600]),
                     SizedBox(width: 4),
                     Expanded(
                       child: Text(
-                        popup.address ?? '',
+                        popup.localizedDescription(context) ?? '',
                         style: Theme.of(context).textTheme.headlineSmall,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                        overflow: TextOverflow.visible,
+                        softWrap: true,
                       ),
-                    ),
-                  ],
+                    )
+                  ]
                 ),
                 
                 // 구분선 추가

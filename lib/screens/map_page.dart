@@ -103,6 +103,14 @@ class MapPage extends StatelessWidget {
                                     width: 80,
                                     height: double.infinity,
                                     fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Container(
+                                        width: 80,
+                                        height: double.infinity,
+                                        color: Colors.grey[200],
+                                        child: Image.asset('assets/no_image.png'),
+                                      );
+                                    },
                                   ),
                                 ),
                                 Expanded(
