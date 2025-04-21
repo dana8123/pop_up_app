@@ -109,6 +109,28 @@ class PopupCard extends StatelessWidget {
 
   const PopupCard({Key? key, required this.popup}) : super(key: key);
 
+  void _openLink(BuildContext context, String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("링크를 열 수 없습니다")),
+      );
+    }
+  }
+
+  void _sharePopup(BuildContext context) {
+    final shareText = '''
+${popup.localizedName(context)}
+📍 ${popup.address ?? '주소 정보 없음'}
+🗓️ ${formatPopupDateFromString(popup.startDate)} - ${formatPopupDateFromString(popup.endDate)}
+지금 이 팝업, 딱 내 취향...!
+👉 Popup Finder에서 더 알아보기!
+    ''';
+    Share.share(shareText);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -130,7 +152,7 @@ class PopupCard extends StatelessWidget {
                       width: double.infinity,
                       height: 200,
                       color: Colors.grey[200],
-                      child: Icon(Icons.image_not_supported, size: 50),
+                      child: Image.asset('assets/no_image.png'),
                     );
                   },
                 ),
@@ -204,6 +226,105 @@ class PopupCard extends StatelessWidget {
                         style: Theme.of(context).textTheme.headlineSmall,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+                
+                // 구분선 추가
+                SizedBox(height: 16),
+                Divider(),
+                SizedBox(height: 8),
+                
+                // 하단 버튼 영역
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    // 네이버 지도
+                    InkWell(
+                      onTap: () => _openLink(context, popup.naverMap),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'assets/icons/naver_map.png',
+                            width: 24,
+                            height: 24,
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            '네이버지도',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    
+                    // 카카오 지도
+                    InkWell(
+                      onTap: () => _openLink(context, popup.kakaoMap),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'assets/icons/kakao_map.png',
+                            width: 24,
+                            height: 24,
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            '카카오맵',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    
+                    // 구글 지도
+                    InkWell(
+                      onTap: () => _openLink(context, popup.googleMap),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'assets/icons/google_map.png',
+                            width: 24,
+                            height: 24,
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            '구글지도',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    
+                    // 공유하기 버튼
+                    InkWell(
+                      onTap: () => _sharePopup(context),
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.share,
+                            size: 24,
+                            color: Colors.grey[600],
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            '공유하기',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
