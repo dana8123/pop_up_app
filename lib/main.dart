@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:popup_app/l10n/app_localizations.dart';
+import 'package:popup_app/utils/like_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import './providers/popup_provider.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,        // 추가로 AppLocalizations.delegate도 설정 필요
+        GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: [
         Locale('en'),
@@ -41,10 +42,91 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Popup Finder',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'NotoSansKr',
+        primaryColor: Colors.black,
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Colors.white,
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.grey,
+          type: BottomNavigationBarType.fixed,
+          elevation: 8,
+        ),
+        cardTheme: CardTheme(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        textTheme: TextTheme(
+          headlineLarge: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+          headlineMedium: TextStyle(
+            fontSize: 16,
+            color: Colors.black87,
+          ),
+          headlineSmall: TextStyle(
+            fontSize: 14,
+            color: Colors.grey[600],
+          ),
+        ),
       ),
       home: SplashScreen(),
+    );
+  }
+}
+
+
+class LikeButton extends StatefulWidget {
+  final double popupId;
+
+  const LikeButton({Key? key, required this.popupId}) : super(key: key);
+
+  @override
+  State<LikeButton> createState() => _LikeButtonState();
+}
+
+class _LikeButtonState extends State<LikeButton> {
+  bool isLiked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLikeStatus();
+  }
+
+  Future<void> _checkLikeStatus() async {
+    final liked = await LikeHelper.isLiked(widget.popupId);
+    if (mounted) {
+      setState(() {
+        isLiked = liked;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(
+        isLiked ? Icons.favorite : Icons.favorite_border,
+        color: isLiked ? Colors.red : Colors.grey,
+      ),
+      onPressed: () async {
+        await LikeHelper.toggleLike(widget.popupId);
+        await _checkLikeStatus();
+      },
     );
   }
 }
