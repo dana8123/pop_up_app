@@ -9,5 +9,11 @@
     "place_hongdae": "hongdae",
     "place_etc": "etc",
     "place_all": "all",
-    "no_like": "You haven't liked any pop-ups yet."
+    "no_like": "You haven't liked any pop-ups yet.",
+    "naver_map": "Naver map",
+    "kakao_map": "Kakao map",
+    "google_map": "Google map",
+    "share": "Share",
+    "link": "Link",
+    "around_popup": "around_popup"
   }

@@ -196,7 +196,7 @@ ${popup.localizedName(shareContext)}
                                       ),
                                       SizedBox(height: 4),
                                       Text(
-                                        '네이버지도',
+                                        AppLocalizations.of(context)!.naver_map,
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Colors.grey[600],
@@ -216,7 +216,7 @@ ${popup.localizedName(shareContext)}
                                       ),
                                       SizedBox(height: 4),
                                       Text(
-                                        '카카오맵',
+                                        AppLocalizations.of(context)!.kakao_map,
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Colors.grey[600],
@@ -236,7 +236,7 @@ ${popup.localizedName(shareContext)}
                                       ),
                                       SizedBox(height: 4),
                                       Text(
-                                        '구글지도',
+                                        AppLocalizations.of(context)!.google_map,
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Colors.grey[600],
@@ -258,7 +258,7 @@ ${popup.localizedName(shareContext)}
                                         ),
                                       SizedBox(height: 4),
                                       Text(
-                                        '관련링크',
+                                        AppLocalizations.of(context)!.link,
                                         style: TextStyle(
                                           fontSize: 12,
                                           color: Colors.grey[600],
@@ -281,7 +281,7 @@ ${popup.localizedName(shareContext)}
                                           ),
                                           SizedBox(height: 4),
                                           Text(
-                                            '공유하기',
+                                            AppLocalizations.of(context)!.share,
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: Colors.grey[600],

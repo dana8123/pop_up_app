@@ -9,5 +9,11 @@
   "place_hongdae": "弘大",
   "place_etc": "etc",
   "place_all": "全部的",
-  "no_like": "你还没有点赞任何快闪店。"
+  "no_like": "你还没有点赞任何快闪店。",
+  "naver_map": "Naver 地图",
+  "kakao_map": "Kakao 地图",
+  "google_map": "Google 地图",
+  "share": "分享",
+  "link": "链接",
+  "around_popup": "附近的快闪店"
 }

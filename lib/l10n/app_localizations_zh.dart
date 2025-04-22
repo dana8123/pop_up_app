@@ -37,4 +37,22 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get no_like => '你还没有点赞任何快闪店。';
+
+  @override
+  String get naver_map => 'Naver 地图';
+
+  @override
+  String get kakao_map => 'Kakao 地图';
+
+  @override
+  String get google_map => 'Google 地图';
+
+  @override
+  String get share => '分享';
+
+  @override
+  String get link => '链接';
+
+  @override
+  String get around_popup => '附近的快闪店';
 }

@@ -156,6 +156,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You haven\'t liked any pop-ups yet.'**
   String get no_like;
+
+  /// No description provided for @naver_map.
+  ///
+  /// In en, this message translates to:
+  /// **'Naver map'**
+  String get naver_map;
+
+  /// No description provided for @kakao_map.
+  ///
+  /// In en, this message translates to:
+  /// **'Kakao map'**
+  String get kakao_map;
+
+  /// No description provided for @google_map.
+  ///
+  /// In en, this message translates to:
+  /// **'Google map'**
+  String get google_map;
+
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
+
+  /// No description provided for @link.
+  ///
+  /// In en, this message translates to:
+  /// **'Link'**
+  String get link;
+
+  /// No description provided for @around_popup.
+  ///
+  /// In en, this message translates to:
+  /// **'around_popup'**
+  String get around_popup;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

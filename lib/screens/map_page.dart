@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:apple_maps_flutter/apple_maps_flutter.dart';
+import 'package:popup_app/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../providers/popup_provider.dart';
 
@@ -77,7 +78,7 @@ class MapPage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(16),
                     child: Text(
-                      '주변 팝업스토어',
+                      AppLocalizations.of(context)!.around_popup,
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                   ),

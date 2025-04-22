@@ -37,4 +37,22 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get no_like => '좋아요한 팝업이 없어요';
+
+  @override
+  String get naver_map => '네이버지도';
+
+  @override
+  String get kakao_map => '카카오지도';
+
+  @override
+  String get google_map => '구글지도';
+
+  @override
+  String get share => '공유';
+
+  @override
+  String get link => '관련링크';
+
+  @override
+  String get around_popup => 'around_popup';
 }

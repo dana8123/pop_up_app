@@ -37,4 +37,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get no_like => 'You haven\'t liked any pop-ups yet.';
+
+  @override
+  String get naver_map => 'Naver map';
+
+  @override
+  String get kakao_map => 'Kakao map';
+
+  @override
+  String get google_map => 'Google map';
+
+  @override
+  String get share => 'Share';
+
+  @override
+  String get link => 'Link';
+
+  @override
+  String get around_popup => 'around_popup';
 }
