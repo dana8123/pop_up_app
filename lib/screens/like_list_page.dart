@@ -71,7 +71,7 @@ ${popup.localizedName(shareContext)}
         .toList();
 
     return Scaffold(
-      appBar: AppBar(title: Text("좋아요")),
+      appBar: AppBar(title: Text("Like")),
       body: likedPopups.isEmpty
           ? Center(child: Text(AppLocalizations.of(context)!.no_like))
           : ListView.builder(
