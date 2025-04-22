@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../providers/popup_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:io';
 
 class PopupListPage extends StatefulWidget {
   @override
@@ -120,15 +121,26 @@ class PopupCard extends StatelessWidget {
     }
   }
 
-  void _sharePopup(BuildContext context) {
+  void _sharePopup(BuildContext shareContext) {
     final shareText = '''
-${popup.localizedName(context)}
+${popup.localizedName(shareContext)}
 📍 ${popup.address ?? '주소 정보 없음'}
 🗓️ ${formatPopupDateFromString(popup.startDate)} - ${formatPopupDateFromString(popup.endDate)}
 지금 이 팝업, 딱 내 취향...!
 👉 Popup Finder에서 더 알아보기!
     ''';
-    Share.share(shareText);
+
+    if (Platform.isIOS) {
+      final box = shareContext.findRenderObject() as RenderBox?;
+      Share.share(
+        shareText,
+        sharePositionOrigin: box != null 
+            ? box.localToGlobal(Offset.zero) & box.size
+            : Rect.zero,
+      );
+    } else {
+      Share.share(shareText);
+    }
   }
 
   @override
@@ -323,24 +335,26 @@ ${popup.localizedName(context)}
                     ),
                     
                     // 공유하기 버튼
-                    InkWell(
-                      onTap: () => _sharePopup(context),
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.share,
-                            size: 24,
-                            color: Colors.grey[600],
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            '공유하기',
-                            style: TextStyle(
-                              fontSize: 12,
+                    Builder(
+                      builder: (shareContext) => InkWell(
+                        onTap: () => _sharePopup(shareContext),
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.share,
+                              size: 24,
                               color: Colors.grey[600],
                             ),
-                          ),
-                        ],
+                            SizedBox(height: 4),
+                            Text(
+                              '공유하기',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

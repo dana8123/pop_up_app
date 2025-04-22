@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:popup_app/main.dart';
 import 'package:popup_app/providers/popup_provider.dart';
 import 'package:popup_app/screens/popup_list_page.dart';
 import 'package:popup_app/utils/date_helper.dart';
 import 'package:popup_app/utils/like_helper.dart';
-import 'package:popup_app/utils/tag_color_helper.dart';
 import 'package:popup_app/utils/translate_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:popup_app/l10n/app_localizations.dart';
+import 'dart:io';
 
 class LikeListPage extends StatefulWidget {
   @override
@@ -41,15 +42,25 @@ class _LikeListPageState extends State<LikeListPage> {
     }
   }
 
-  void _sharePopup(BuildContext context, PopupStore popup) {
+  void _sharePopup(BuildContext shareContext, PopupStore popup) {
     final shareText = '''
-${popup.localizedName(context)}
+${popup.localizedName(shareContext)}
 📍 ${popup.address ?? '주소 정보 없음'}
 🗓️ ${formatPopupDateFromString(popup.startDate)} - ${formatPopupDateFromString(popup.endDate)}
 지금 이 팝업, 딱 내 취향...!
 👉 Popup Finder에서 더 알아보기!
     ''';
-    Share.share(shareText);
+    if (Platform.isIOS) {
+      final box = shareContext.findRenderObject() as RenderBox?;
+      Share.share(
+        shareText,
+        sharePositionOrigin: box != null 
+            ? box.localToGlobal(Offset.zero) & box.size
+            : Rect.zero,
+      );
+    } else {
+      Share.share(shareText);
+    }
   }
 
   @override
@@ -234,25 +245,29 @@ ${popup.localizedName(context)}
                                     ],
                                   ),
                                 ),
-                                InkWell(
-                                  onTap: () => _sharePopup(context, popup),
-                                  child: Column(
-                                    children: [
-                                      Icon(
-                                        Icons.share,
-                                        size: 24,
-                                        color: Colors.grey[600],
+                                Builder(
+                                  builder: (shareContext) {
+                                    return InkWell(
+                                      onTap: () => _sharePopup(shareContext, popup),
+                                      child: Column(
+                                        children: [
+                                          Icon(
+                                            Icons.share,
+                                            size: 24,
+                                            color: Colors.grey[600],
+                                          ),
+                                          SizedBox(height: 4),
+                                          Text(
+                                            '공유하기',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.grey[600],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      SizedBox(height: 4),
-                                      Text(
-                                        '공유하기',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey[600],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    );
+                                  }
                                 ),
                               ],
                             ),
@@ -264,6 +279,49 @@ ${popup.localizedName(context)}
                 );
               },
             ),
+    );
+  }
+}
+
+
+class LikeButton extends StatefulWidget {
+  final double popupId;
+
+  const LikeButton({Key? key, required this.popupId}) : super(key: key);
+
+  @override
+  State<LikeButton> createState() => _LikeButtonState();
+}
+
+class _LikeButtonState extends State<LikeButton> {
+  bool isLiked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLikeStatus();
+  }
+
+  Future<void> _checkLikeStatus() async {
+    final liked = await LikeHelper.isLiked(widget.popupId);
+    if (mounted) {
+      setState(() {
+        isLiked = liked;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(
+        isLiked ? Icons.favorite : Icons.favorite_border,
+        color: isLiked ? Colors.red : Colors.grey,
+      ),
+      onPressed: () async {
+        await LikeHelper.toggleLike(widget.popupId);
+        await _checkLikeStatus();
+      },
     );
   }
 }

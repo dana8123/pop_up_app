@@ -171,3 +171,6 @@ ios/Runner/GoogleService-Info.plist
 # CocoaPods
 Pods/
 Podfile.lock
+
+# Firebase 
+lib/firebase_options.dart
