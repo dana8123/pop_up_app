@@ -245,6 +245,29 @@ ${popup.localizedName(shareContext)}
                                     ],
                                   ),
                                 ),
+                                // 관련링크
+                                // 링크 버튼
+                                InkWell(
+                                  onTap: () => _openLink(context, popup.link),
+                                  child: Column(
+                                    children: [
+                                      Icon(
+                                          Icons.link_rounded,
+                                          size: 24,
+                                          color: Colors.grey[600],
+                                        ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        '관련링크',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                
                                 Builder(
                                   builder: (shareContext) {
                                     return InkWell(

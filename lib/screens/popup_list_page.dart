@@ -333,6 +333,29 @@ ${popup.localizedName(shareContext)}
                         ],
                       ),
                     ),
+
+                    // 링크 버튼
+                    InkWell(
+                      onTap: () => _openLink(context, popup.link),
+                      child: Column(
+                        children: [
+                          Icon(
+                              Icons.link_rounded,
+                              size: 24,
+                              color: Colors.grey[600],
+                            ),
+                          SizedBox(height: 4),
+                          Text(
+                            '관련링크',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
                     
                     // 공유하기 버튼
                     Builder(
