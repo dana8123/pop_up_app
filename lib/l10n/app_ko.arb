@@ -14,5 +14,6 @@
     "kakao_map": "카카오지도",
     "google_map": "구글지도",
     "share": "공유",
-    "link": "관련링크"
+    "link": "관련링크",
+    "around_popup": "주변 팝업스토어"
   }

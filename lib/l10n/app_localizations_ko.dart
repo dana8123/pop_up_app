@@ -54,5 +54,5 @@ class AppLocalizationsKo extends AppLocalizations {
   String get link => '관련링크';
 
   @override
-  String get around_popup => 'around_popup';
+  String get around_popup => '주변 팝업스토어';
 }

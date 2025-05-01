@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:popup_app/services/push_notification_service.dart';
 import 'main_navigation.dart';
 import '../utils/network_helper.dart';
 
@@ -10,6 +11,17 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Future<void> initializeApp() async {
+    try {
+      await dotenv.load(fileName: ".env");
+      await Future.wait([
+        // 푸시 알림 서비스 초기화, 오래걸려서 스플래쉬화면에서 진행하는것으로 변경
+        PushNotificationService().initialize(),
+      ]);
+    } catch (e) {
+      print("초기화 실패: $e");
+    }
+  }
   AppOpenAd? _appOpenAd;
   bool _isAdLoaded = false;
   bool _isAdShowing = false;

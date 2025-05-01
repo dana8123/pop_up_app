@@ -10,7 +10,6 @@ import './providers/popup_provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'services/push_notification_service.dart';
 
 Future<void> main() async {
   try {
@@ -22,17 +21,13 @@ Future<void> main() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    
-    // 푸시 알림 서비스 초기화
-    final pushNotificationService = PushNotificationService();
-    
+  
     // 나머지 서비스 초기화
     await MobileAds.instance.initialize();
     await Supabase.initialize(
       url: dotenv.get("SUPABASE_URL"),
       anonKey: dotenv.get("SUPABASE_ANON_KEY"),
     );
-    await pushNotificationService.initialize();
 
     runApp(
       ChangeNotifierProvider(
