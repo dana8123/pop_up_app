@@ -16,7 +16,8 @@ class _SplashScreenState extends State<SplashScreen> {
       await dotenv.load(fileName: ".env");
       await Future.wait([
         // 푸시 알림 서비스 초기화, 오래걸려서 스플래쉬화면에서 진행하는것으로 변경
-        PushNotificationService().initialize(),
+        // PushNotificationService().initialize(),
+        PushNotificationService().init(),
       ]);
     } catch (e) {
       print("초기화 실패: $e");

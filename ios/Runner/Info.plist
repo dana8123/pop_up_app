@@ -39,6 +39,8 @@
 		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
+	<key>NSUserNotificationsUsageDescription</key>
+	<string>새로운 팝업 스토어 정보 및 업데이트를 알려드리기 위해 알림 권한이 필요합니다.</string>	
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
