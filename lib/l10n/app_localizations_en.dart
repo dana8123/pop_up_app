@@ -30,7 +30,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get place_hongdae => 'hongdae';
 
   @override
-  String get place_Yeouido => 'yeouido';
+  String get place_yeouido => 'yeouido';
 
   @override
   String get place_etc => 'etc';
@@ -61,4 +61,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get push_subtitle => 'We’ll quietly let you know when a new popup opens.';
+
+  @override
+  String get push_setting => 'push notification settings';
+
+  @override
+  String get push_active => 'Notifications have been activated';
+
+  @override
+  String get push_inactive => 'Notifications have been deactivated';
+
+  @override
+  String get cancel => 'cancel';
+
+  @override
+  String get check => 'check';
 }

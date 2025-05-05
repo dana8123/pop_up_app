@@ -55,7 +55,11 @@ class _SettingsPageState extends State<SettingsPage> {
                     // 알림 상태 변경 피드백
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(value ? '알림이 활성화되었습니다' : '알림이 비활성화되었습니다'),
+                        content: Text(
+                           value
+                            ? AppLocalizations.of(context)!.push_active
+                            : AppLocalizations.of(context)!.push_inactive,
+                        ),
                         duration: Duration(seconds: 1),
                       ),
                     );

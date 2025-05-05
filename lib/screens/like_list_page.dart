@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:popup_app/main.dart';
 import 'package:popup_app/providers/popup_provider.dart';
-import 'package:popup_app/screens/popup_list_page.dart';
 import 'package:popup_app/utils/date_helper.dart';
 import 'package:popup_app/utils/like_helper.dart';
 import 'package:popup_app/utils/translate_helper.dart';

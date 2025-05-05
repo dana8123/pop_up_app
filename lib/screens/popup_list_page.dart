@@ -1,8 +1,9 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:popup_app/l10n/app_localizations.dart';
+import 'package:popup_app/services/push_notification_service.dart';
 import 'package:popup_app/utils/date_helper.dart';
 import 'package:popup_app/utils/like_helper.dart';
-import 'package:popup_app/utils/tag_color_helper.dart';
 import 'package:popup_app/utils/translate_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -17,7 +18,16 @@ class PopupListPage extends StatefulWidget {
 
 class _PopupListPageState extends State<PopupListPage> {
   Map<double, bool> likedStatus = {};
-  final List<String> locationList = ['전체', '성수', '잠실', '을지로', '강남', '홍대' '여의도', '기타' ];
+  final List<String> locationList = [
+    '전체',
+    '성수',
+    '잠실',
+    '을지로',
+    '강남',
+    '홍대' ,
+    '여의도',
+    '기타'
+  ];
   String selectedLocation = '전체';
 
   @override
@@ -26,8 +36,8 @@ class _PopupListPageState extends State<PopupListPage> {
     _loadLikedStatus();
 
     Future.microtask(() {
-    Provider.of<PopupProvider>(context, listen: false).fetchPopups();
-  });
+      Provider.of<PopupProvider>(context, listen: false).fetchPopups();
+    });
   }
 
   Future<void> _loadLikedStatus() async {
@@ -43,52 +53,54 @@ class _PopupListPageState extends State<PopupListPage> {
   Widget build(BuildContext context) {
     final popupProvider = Provider.of<PopupProvider>(context);
     final filteredList = selectedLocation == '전체'
-    ? popupProvider.popups
-    : popupProvider.popups
-        .where((p) => p.placeTag == selectedLocation)
-        .toList();
-        
+        ? popupProvider.popups
+        : popupProvider.popups
+            .where((p) => p.placeTag == selectedLocation)
+            .toList();
+
     return Scaffold(
       appBar: AppBar(title: Text('Popup Finder')),
       body: Column(
         children: [
           // 👇 필터 (고정 영역)
-        Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: DropdownButton<String>(
-            value: selectedLocation,
-            onChanged: (value) {
-              setState(() {
-                selectedLocation = value!;
-              });
-            },
-            items: locationList.map((location) {
-              return DropdownMenuItem<String>(
-                value: location,
-                child: Text(translatePlace(context, location)),
-              );
-            }).toList(),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: DropdownButton<String>(
+              value: selectedLocation,
+              onChanged: (value) {
+                setState(() {
+                  selectedLocation = value!;
+                });
+              },
+              items: locationList.map((location) {
+                return DropdownMenuItem<String>(
+                  value: location,
+                  child: Text(translatePlace(context, location)),
+                );
+              }).toList(),
+            ),
           ),
-        ),
-        // 카드리스트
-        Expanded(child: popupProvider.isLoading
-              ? Center(child: CircularProgressIndicator())
-              : filteredList.isEmpty 
-                ?Center(child: Text("팝업 정보가 없습니다")) 
-              : ListView.builder(
-                  itemCount: filteredList.length,
-                  itemBuilder: (context, index) {
-                    final popup = filteredList[index];
-          
-                    return PopupCard(popup: popup);
-                  },
-                ),)
-          
+          // 카드리스트
+          Expanded(
+            child: popupProvider.isLoading
+                ? Center(child: CircularProgressIndicator())
+                : filteredList.isEmpty
+                    ? Center(child: Text("팝업 정보가 없습니다"))
+                    : ListView.builder(
+                        itemCount: filteredList.length,
+                        itemBuilder: (context, index) {
+                          final popup = filteredList[index];
+
+                          return PopupCard(popup: popup);
+                        },
+                      ),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.refresh),
-        onPressed: () => Provider.of<PopupProvider>(context, listen: false).fetchPopups(),
+        onPressed: () =>
+            Provider.of<PopupProvider>(context, listen: false).fetchPopups(),
       ),
     );
   }
@@ -136,9 +148,8 @@ ${popup.localizedDescription(shareContext)}
       final box = shareContext.findRenderObject() as RenderBox?;
       Share.share(
         shareText,
-        sharePositionOrigin: box != null 
-            ? box.localToGlobal(Offset.zero) & box.size
-            : Rect.zero,
+        sharePositionOrigin:
+            box != null ? box.localToGlobal(Offset.zero) & box.size : Rect.zero,
       );
     } else {
       Share.share(shareText);
@@ -221,7 +232,8 @@ ${popup.localizedDescription(shareContext)}
                 SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(Icons.calendar_today, size: 16, color: Colors.grey[600]),
+                    Icon(Icons.calendar_today,
+                        size: 16, color: Colors.grey[600]),
                     SizedBox(width: 4),
                     Text(
                       '${formatPopupDateFromString(popup.startDate)} - ${formatPopupDateFromString(popup.endDate)}',
@@ -244,28 +256,25 @@ ${popup.localizedDescription(shareContext)}
                 //     ),
                 //   ],
                 // ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children:[
-                    Icon(Icons.description, size: 16, color: Colors.grey[600]),
-                    SizedBox(width: 4),
-                    Expanded(
-                      child: Text(
-                        popup.localizedDescription(context) ?? '',
-                        style: Theme.of(context).textTheme.headlineSmall,
-                        maxLines: 3,
-                        overflow: TextOverflow.visible,
-                        softWrap: true,
-                      ),
-                    )
-                  ]
-                ),
-                
+                Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Icon(Icons.description, size: 16, color: Colors.grey[600]),
+                  SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      popup.localizedDescription(context) ?? '',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      maxLines: 3,
+                      overflow: TextOverflow.visible,
+                      softWrap: true,
+                    ),
+                  )
+                ]),
+
                 // 구분선 추가
                 SizedBox(height: 16),
                 Divider(),
                 SizedBox(height: 8),
-                
+
                 // 하단 버튼 영역
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -291,7 +300,7 @@ ${popup.localizedDescription(shareContext)}
                         ],
                       ),
                     ),
-                    
+
                     // 카카오 지도
                     InkWell(
                       onTap: () => _openLink(context, popup.kakaoMap),
@@ -313,7 +322,7 @@ ${popup.localizedDescription(shareContext)}
                         ],
                       ),
                     ),
-                    
+
                     // 구글 지도
                     InkWell(
                       onTap: () => _openLink(context, popup.googleMap),
@@ -342,10 +351,10 @@ ${popup.localizedDescription(shareContext)}
                       child: Column(
                         children: [
                           Icon(
-                              Icons.link_rounded,
-                              size: 24,
-                              color: Colors.grey[600],
-                            ),
+                            Icons.link_rounded,
+                            size: 24,
+                            color: Colors.grey[600],
+                          ),
                           SizedBox(height: 4),
                           Text(
                             AppLocalizations.of(context)!.link,
@@ -358,7 +367,6 @@ ${popup.localizedDescription(shareContext)}
                       ),
                     ),
 
-                    
                     // 공유하기 버튼
                     Builder(
                       builder: (shareContext) => InkWell(
@@ -430,6 +438,34 @@ class _LikeButtonState extends State<LikeButton> {
       onPressed: () async {
         await LikeHelper.toggleLike(widget.popupId);
         await _checkLikeStatus();
+
+        final enabled = await PushNotificationService().isNotificationEnabled();
+
+        if (!enabled) {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text(AppLocalizations.of(context)!.push_setting),
+                  content: Text(AppLocalizations.of(context)!.push_subtitle),
+                  actions: <Widget>[
+                  TextButton(
+                    child: Text(AppLocalizations.of(context)!.cancel),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // 다이얼로그 닫기
+                    },
+                  ),
+                  TextButton(
+                    child: Text(AppLocalizations.of(context)!.check),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // 다이얼로그 닫기
+                      AppSettings.openAppSettings(type: AppSettingsType.notification); // 알림 설정 페이지로 이동
+                    },
+                  ),
+                ],
+                );
+              });
+        }
       },
     );
   }

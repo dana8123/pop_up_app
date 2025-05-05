@@ -139,11 +139,11 @@ abstract class AppLocalizations {
   /// **'hongdae'**
   String get place_hongdae;
 
-  /// No description provided for @place_Yeouido.
+  /// No description provided for @place_yeouido.
   ///
   /// In en, this message translates to:
   /// **'yeouido'**
-  String get place_Yeouido;
+  String get place_yeouido;
 
   /// No description provided for @place_etc.
   ///
@@ -204,6 +204,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'We’ll quietly let you know when a new popup opens.'**
   String get push_subtitle;
+
+  /// No description provided for @push_setting.
+  ///
+  /// In en, this message translates to:
+  /// **'push notification settings'**
+  String get push_setting;
+
+  /// No description provided for @push_active.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications have been activated'**
+  String get push_active;
+
+  /// No description provided for @push_inactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications have been deactivated'**
+  String get push_inactive;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'cancel'**
+  String get cancel;
+
+  /// No description provided for @check.
+  ///
+  /// In en, this message translates to:
+  /// **'check'**
+  String get check;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

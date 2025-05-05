@@ -10,6 +10,7 @@ String translatePlace(BuildContext context, String original) {
     '강남':AppLocalizations.of(context)!.place_gangnam,
     '기타':AppLocalizations.of(context)!.place_etc,
     '전체':AppLocalizations.of(context)!.place_all,
+    '여의도':AppLocalizations.of(context)!.place_yeouido,
   };
   return map[original] ?? original;
 }

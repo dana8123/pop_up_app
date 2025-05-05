@@ -30,7 +30,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get place_hongdae => '弘大';
 
   @override
-  String get place_Yeouido => 'yeouido';
+  String get place_yeouido => '汝矣岛';
 
   @override
   String get place_etc => 'etc';
@@ -61,4 +61,19 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get push_subtitle => '有新的快闪店开启时，我们会悄悄告诉你哟';
+
+  @override
+  String get push_setting => '推送通知设置';
+
+  @override
+  String get push_active => '通知已启用';
+
+  @override
+  String get push_inactive => '通知已停用';
+
+  @override
+  String get cancel => '取消';
+
+  @override
+  String get check => '查看';
 }

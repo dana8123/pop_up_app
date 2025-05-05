@@ -7,6 +7,7 @@
   "place_gangnam": "江南",
   "place_euljiro": "乙支路",
   "place_hongdae": "弘大",
+  "place_yeouido": "汝矣岛",
   "place_etc": "etc",
   "place_all": "全部的",
   "no_like": "你还没有点赞任何快闪店。",
@@ -16,5 +17,10 @@
   "share": "分享",
   "link": "链接",
   "around_popup": "附近的快闪店",
-  "push_subtitle": "有新的快闪店开启时，我们会悄悄告诉你哟"
+  "push_subtitle": "有新的快闪店开启时，我们会悄悄告诉你哟",
+  "push_active": "通知已启用",
+  "push_inactive": "通知已停用",
+  "push_setting": "推送通知设置",
+  "cancel": "取消",
+  "check": "查看"
 }
