@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
         Locale('zh'),
         Locale('ko'),
       ],
-      locale: Locale('zh'),
+      locale: Locale('ko'),
       debugShowCheckedModeBanner: false,
       title: 'Popup Finder',
       theme: ThemeData(
