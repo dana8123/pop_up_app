@@ -1,6 +1,7 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:popup_app/l10n/app_localizations.dart';
+import 'package:popup_app/screens/setting_page.dart';
 import 'package:popup_app/services/push_notification_service.dart';
 import 'package:popup_app/utils/date_helper.dart';
 import 'package:popup_app/utils/like_helper.dart';
@@ -24,7 +25,7 @@ class _PopupListPageState extends State<PopupListPage> {
     '잠실',
     '을지로',
     '강남',
-    '홍대' ,
+    '홍대',
     '여의도',
     '기타'
   ];
@@ -441,7 +442,7 @@ class _LikeButtonState extends State<LikeButton> {
 
         final enabled = await PushNotificationService().isNotificationEnabled();
 
-        if (!enabled) {
+        if (!enabled && isLiked) {
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -449,20 +450,24 @@ class _LikeButtonState extends State<LikeButton> {
                   title: Text(AppLocalizations.of(context)!.push_setting),
                   content: Text(AppLocalizations.of(context)!.push_subtitle),
                   actions: <Widget>[
-                  TextButton(
-                    child: Text(AppLocalizations.of(context)!.cancel),
-                    onPressed: () {
-                      Navigator.of(context).pop(); // 다이얼로그 닫기
-                    },
-                  ),
-                  TextButton(
-                    child: Text(AppLocalizations.of(context)!.check),
-                    onPressed: () {
-                      Navigator.of(context).pop(); // 다이얼로그 닫기
-                      AppSettings.openAppSettings(type: AppSettingsType.notification); // 알림 설정 페이지로 이동
-                    },
-                  ),
-                ],
+                    TextButton(
+                      child: Text(AppLocalizations.of(context)!.cancel),
+                      onPressed: () {
+                        Navigator.of(context).pop(); // 다이얼로그 닫기
+                      },
+                    ),
+                    TextButton(
+                      child: Text(AppLocalizations.of(context)!.check),
+                      onPressed: () {
+                        Navigator.of(context).pop(); // 다이얼로그 닫기
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => SettingsPage(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 );
               });
         }
