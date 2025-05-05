@@ -30,6 +30,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get place_hongdae => 'hongdae';
 
   @override
+  String get place_Yeouido => 'yeouido';
+
+  @override
   String get place_etc => 'etc';
 
   @override
@@ -55,4 +58,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get around_popup => 'around_popup';
+
+  @override
+  String get push_subtitle => 'We’ll quietly let you know when a new popup opens.';
 }

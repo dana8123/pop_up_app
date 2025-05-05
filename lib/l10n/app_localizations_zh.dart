@@ -30,6 +30,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get place_hongdae => '弘大';
 
   @override
+  String get place_Yeouido => 'yeouido';
+
+  @override
   String get place_etc => 'etc';
 
   @override
@@ -55,4 +58,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get around_popup => '附近的快闪店';
+
+  @override
+  String get push_subtitle => '有新的快闪店开启时，我们会悄悄告诉你哟';
 }

@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -216,6 +217,7 @@ class PushNotificationService {
         // 이 기능은 네이티브 코드와 MethodChannel을 통해 구현해야 할 수 있음
       } else {
         // 사용자에게 설정 앱에서 알림을 활성화하도록 안내하는 로직
+        AppSettings.openAppSettings(type: AppSettingsType.notification);
         print('알림 사용 권한이 없습니다. 설정 앱에서 알림을 활성화해 주세요.');
       }
     } else {

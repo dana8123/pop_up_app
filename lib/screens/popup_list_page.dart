@@ -17,7 +17,7 @@ class PopupListPage extends StatefulWidget {
 
 class _PopupListPageState extends State<PopupListPage> {
   Map<double, bool> likedStatus = {};
-  final List<String> locationList = ['전체', '성수', '잠실', '을지로', '강남', '홍대', '기타' ];
+  final List<String> locationList = ['전체', '성수', '잠실', '을지로', '강남', '홍대' '여의도', '기타' ];
   String selectedLocation = '전체';
 
   @override
@@ -127,8 +127,9 @@ class PopupCard extends StatelessWidget {
 ${popup.localizedName(shareContext)}
 📍 ${popup.address ?? '주소 정보 없음'}
 🗓️ ${formatPopupDateFromString(popup.startDate)} - ${formatPopupDateFromString(popup.endDate)}
-지금 이 팝업, 딱 내 취향...!
+${popup.localizedDescription(shareContext)}
 👉 Popup Finder에서 더 알아보기!
+🍏 https://apps.apple.com/kr/app/popup-finder/id6744317349
     ''';
 
     if (Platform.isIOS) {

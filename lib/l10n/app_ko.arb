@@ -7,6 +7,7 @@
     "place_gangnam": "강남",
     "place_euljiro": "을지로",
     "place_hongdae": "홍대",
+    "place_Yeouido": "여의도",
     "place_etc": "기타",
     "place_all": "전체",
     "no_like": "좋아요한 팝업이 없어요",
@@ -15,5 +16,6 @@
     "google_map": "구글지도",
     "share": "공유",
     "link": "관련링크",
-    "around_popup": "주변 팝업스토어"
+    "around_popup": "주변 팝업스토어",
+    "push_subtitle": "새로운 팝업이 열리면, 살며시 알려드릴게요."
   }

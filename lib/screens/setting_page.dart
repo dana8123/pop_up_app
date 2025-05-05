@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:popup_app/l10n/app_localizations.dart';
 import 'package:popup_app/services/push_notification_service.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -32,17 +33,17 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('설정'),
+        title: Text('Settings'),
       ),
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
           : ListView(
               children: [
                 SizedBox(height: 20),
-                _buildSectionTitle('알림 설정'),
+                _buildSectionTitle('Push'),
                 SwitchListTile(
-                  title: Text('푸시 알림'),
-                  subtitle: Text('새로운 팝업 스토어 정보 및 업데이트를 받습니다'),
+                  title: Text('Notice'),
+                  subtitle: Text(AppLocalizations.of(context)!.push_subtitle),
                   value: _notificationsEnabled,
                   onChanged: (value) async {
                     // 알림 설정 업데이트
@@ -55,7 +56,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(value ? '알림이 활성화되었습니다' : '알림이 비활성화되었습니다'),
-                        duration: Duration(seconds: 2),
+                        duration: Duration(seconds: 1),
                       ),
                     );
                   },
@@ -63,24 +64,24 @@ class _SettingsPageState extends State<SettingsPage> {
                 Divider(),
                 
                 // 추가 설정 옵션들을 여기에 추가할 수 있습니다
-                _buildSectionTitle('앱 정보'),
+                _buildSectionTitle('App info'),
                 ListTile(
-                  title: Text('앱 버전'),
-                  subtitle: Text('1.0.0'),
+                  title: Text('Version'),
+                  subtitle: Text('1.0.4'),
                   onTap: () {},
                 ),
-                ListTile(
-                  title: Text('이용약관'),
-                  onTap: () {
-                    // 이용약관 페이지로 이동
-                  },
-                ),
-                ListTile(
-                  title: Text('개인정보 처리방침'),
-                  onTap: () {
-                    // 개인정보 처리방침 페이지로 이동
-                  },
-                ),
+                // ListTile(
+                //   title: Text('이용약관'),
+                //   onTap: () {
+                //     // 이용약관 페이지로 이동
+                //   },
+                // ),
+                // ListTile(
+                //   title: Text('개인정보 처리방침'),
+                //   onTap: () {
+                //     // 개인정보 처리방침 페이지로 이동
+                //   },
+                // ),
               ],
             ),
     );

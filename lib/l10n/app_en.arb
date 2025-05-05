@@ -7,6 +7,7 @@
     "place_gangnam": "gangnam",
     "place_euljiro": "euljiro",
     "place_hongdae": "hongdae",
+    "place_Yeouido": "yeouido",
     "place_etc": "etc",
     "place_all": "all",
     "no_like": "You haven't liked any pop-ups yet.",
@@ -15,5 +16,6 @@
     "google_map": "Google map",
     "share": "Share",
     "link": "Link",
-    "around_popup": "around_popup"
+    "around_popup": "around_popup",
+    "push_subtitle": "We’ll quietly let you know when a new popup opens."
   }

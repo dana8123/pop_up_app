@@ -30,6 +30,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get place_hongdae => '홍대';
 
   @override
+  String get place_Yeouido => '여의도';
+
+  @override
   String get place_etc => '기타';
 
   @override
@@ -55,4 +58,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get around_popup => '주변 팝업스토어';
+
+  @override
+  String get push_subtitle => '새로운 팝업이 열리면, 살며시 알려드릴게요.';
 }

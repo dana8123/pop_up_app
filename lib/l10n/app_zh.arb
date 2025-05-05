@@ -15,5 +15,6 @@
   "google_map": "Google 地图",
   "share": "分享",
   "link": "链接",
-  "around_popup": "附近的快闪店"
+  "around_popup": "附近的快闪店",
+  "push_subtitle": "有新的快闪店开启时，我们会悄悄告诉你哟"
 }

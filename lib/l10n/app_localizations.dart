@@ -139,6 +139,12 @@ abstract class AppLocalizations {
   /// **'hongdae'**
   String get place_hongdae;
 
+  /// No description provided for @place_Yeouido.
+  ///
+  /// In en, this message translates to:
+  /// **'yeouido'**
+  String get place_Yeouido;
+
   /// No description provided for @place_etc.
   ///
   /// In en, this message translates to:
@@ -192,6 +198,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'around_popup'**
   String get around_popup;
+
+  /// No description provided for @push_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We’ll quietly let you know when a new popup opens.'**
+  String get push_subtitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
